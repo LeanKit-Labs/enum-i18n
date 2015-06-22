@@ -1,0 +1,31 @@
+{
+  "name": "enum-i18n",
+  "version": "1.0.0",
+  "description": "Enum with support for translated member descriptions",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel/register spec/*.spec.js"
+  },
+  "keywords": [
+    "enum",
+    "enumeration",
+    "translate",
+    "translation",
+    "i18n"
+  ],
+  "author": "Matt Dunlap<matt.dunlap@leankit.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Prestaul/enum-i18n.git"
+  },
+  "dependencies": {
+    "deap": "^1.0.0",
+    "enum": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel": "^5.6.3",
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5"
+  }
+}
