@@ -2,6 +2,8 @@
 
 `enum-i18n` extends the excellent enum implementation [adrai/enum](https://github.com/adrai/enum). It exposes an Enum constructor that can be configured with a `translate` function.
 
+This document addresses the i18n features added here. For full documentation see [adrai/enum](https://github.com/adrai/enum).
+
 
 ## Installation
 
