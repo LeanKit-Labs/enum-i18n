@@ -4,6 +4,10 @@ var clone = require( "deap/shallow" ).clone;
 module.exports = function( defaults ) {
 	defaults = defaults || {};
 
+	if ( defaults.name ) {
+		throw new Error( "'name' cannot be provided as a default option to enum-i18n." );
+	}
+
 	class EnumI18n extends Enum {
 		constructor( map, options ) {
 			var opts = clone( options, defaults );
