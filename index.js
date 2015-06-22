@@ -10,7 +10,7 @@ module.exports = function( defaults ) {
 
 	class EnumI18n extends Enum {
 		constructor( map, options ) {
-			var opts = clone( options, defaults );
+			var opts = clone( defaults, options );
 
 			if ( !( opts && opts.name && ( typeof opts.translate === "function" ) ) ) {
 				throw new Error( "EnumI18n requires 'name' and 'translate' options." );
@@ -32,8 +32,8 @@ module.exports = function( defaults ) {
 			var members = this.enums,
 				i = members.length;
 			while ( i-- ) {
-				members[i].enum = this;
-				members[i].description = getTranslation;
+				Object.defineProperty( members[i], "enum", { value: this, enumerable: false } );
+				Object.defineProperty( members[i], "toDescription", { value: getTranslation, enumerable: false } );
 			}
 
 			// Follow through on that promise to freeze the enum
