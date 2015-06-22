@@ -14,80 +14,92 @@ const BASIC_OPTIONS = {
 	}
 };
 
-function basicTests( EnumI18n, frozen ) {
+function basicMemberTests( parent, item, frozen ) {
+	it( 'should have a "key" property', function() {
+		assert.property( item, "key" );
+		assert.strictEqual( item.key, "red" );
+	} );
+
+	it( 'should have a "value" property', function() {
+		assert.property( item, "value" );
+		assert.strictEqual( item.value, 1 );
+	} );
+
+	it( 'should have an "enum" property', function() {
+		assert.property( item, "enum" );
+		assert.strictEqual( item.enum, parent );
+	} );
+
+	it( 'should have a "toDescription" method', function() {
+		assert.property( item, "toDescription" );
+		assert.isFunction( item.toDescription );
+	} );
+
+	it( '"toDescription" method should return translation', function() {
+		assert.strictEqual( item.toDescription(), "colors.red" );
+	} );
+
+	if ( frozen ) {
+		it( "should produce frozen enum items", function() {
+			try {
+				item.foo = "bar";
+			} catch ( e ) {}
+			assert.isUndefined( item.foo );
+		} );
+	} else {
+		it( "should not produce frozen enum items", function() {
+			item.foo = "bar";
+			assert.strictEqual( item.foo, "bar" );
+		} );
+	}
+}
+
+function basicEnumTests( subject, frozen ) {
+	it( 'should create enum with a "name"', function() {
+		assert.property( subject, "name" );
+		assert.strictEqual( subject.name, BASIC_OPTIONS.name );
+	} );
+
+	it( 'should have an "enums" property', function() {
+		assert.property( subject, "enums" );
+		assert.isArray( subject.enums );
+	} );
+
+	it( "should have enum item properties", function() {
+		assert.property( subject, "red" );
+		assert.property( subject, "yellow" );
+		assert.property( subject, "green" );
+	} );
+
+	if ( frozen ) {
+		it( "should produce a frozen enum", function() {
+			try {
+				subject.foo = "bar";
+			} catch ( e ) {}
+			assert.isUndefined( subject.foo );
+		} );
+	} else {
+		it( "should not produce a frozen enum", function() {
+			subject.foo = "bar";
+			assert.strictEqual( subject.foo, "bar" );
+		} );
+	}
+
+	describe( "items", function() {
+		basicMemberTests( subject, subject.red, frozen );
+	} );
+}
+
+function basicContructorTests( EnumI18n, frozen ) {
 	describe( "when instantiated", function() {
 		var subject = new EnumI18n( COLOR_LIST, BASIC_OPTIONS );
 
-		it( 'should create enum with a "name"', function() {
-			assert.property( subject, "name" );
-			assert.strictEqual( subject.name, BASIC_OPTIONS.name );
-		} );
+		basicEnumTests( subject, frozen );
 
-		it( 'should have an "enums" property', function() {
-			assert.property( subject, "enums" );
-			assert.isArray( subject.enums );
-		} );
-
-		it( "should have enum item properties", function() {
-			assert.property( subject, "red" );
-			assert.property( subject, "yellow" );
-			assert.property( subject, "green" );
-		} );
-
-		if ( frozen ) {
-			it( "should produce a frozen enum", function() {
-				try {
-					subject.foo = "bar";
-				} catch ( e ) {}
-				assert.isUndefined( subject.foo );
-			} );
-		} else {
-			it( "should not produce a frozen enum", function() {
-				subject.foo = "bar";
-				assert.strictEqual( subject.foo, "bar" );
-			} );
-		}
-
-		describe( "items", function() {
-			var item = subject.red;
-
-			it( 'should have a "key" property', function() {
-				assert.property( item, "key" );
-				assert.strictEqual( item.key, "red" );
-			} );
-
-			it( 'should have a "value" property', function() {
-				assert.property( item, "value" );
-				assert.strictEqual( item.value, 1 );
-			} );
-
-			it( 'should have an "enum" property', function() {
-				assert.property( item, "enum" );
-				assert.strictEqual( item.enum, subject );
-			} );
-
-			it( 'should have a "toDescription" method', function() {
-				assert.property( item, "toDescription" );
-				assert.isFunction( item.toDescription );
-			} );
-
-			it( '"toDescription" method should return translation', function() {
-				assert.strictEqual( item.toDescription(), "colors.red" );
-			} );
-
-			if ( frozen ) {
-				it( "should produce frozen enum items", function() {
-					try {
-						item.foo = "bar";
-					} catch ( e ) {}
-					assert.isUndefined( item.foo );
-				} );
-			} else {
-				it( "should not produce frozen enum items", function() {
-					item.foo = "bar";
-					assert.strictEqual( item.foo, "bar" );
-				} );
-			}
+		it( 'should have "flaggable" values', function() {
+			assert.strictEqual( subject.red.value, 1 );
+			assert.strictEqual( subject.yellow.value, 2 );
+			assert.strictEqual( subject.green.value, 4 );
 		} );
 	} );
 }
@@ -114,7 +126,7 @@ describe( "EnumI18n", function() {
 			} );
 		} );
 
-		basicTests( EnumI18n, false );
+		basicContructorTests( EnumI18n, false );
 	} );
 
 	describe( 'constructor with default "translate" function', function() {
@@ -136,9 +148,12 @@ describe( "EnumI18n", function() {
 			} );
 		} );
 
-		describe( "", function() {} );
+		it( "uses default translation if not overidden", function() {
+			var subject = new EnumI18n( COLOR_LIST, { name: "colors" } );
+			assert.strictEqual( subject.red.toDescription(), "i.am.enum.colors.red" );
+		} );
 
-		basicTests( EnumI18n, false );
+		basicContructorTests( EnumI18n, false );
 	} );
 
 	describe( 'constructor with default "freez" option', function() {
@@ -146,6 +161,19 @@ describe( "EnumI18n", function() {
 			freez: true
 		} );
 
-		basicTests( EnumI18n, true );
+		basicContructorTests( EnumI18n, true );
+	} );
+
+	describe( "constructed with custom values", function() {
+		var EnumI18n = enumI18n();
+		var subject = new EnumI18n( COLOR_OBJECT, BASIC_OPTIONS );
+
+		basicEnumTests( subject, false );
+
+		it( "should have correct values", function() {
+			assert.strictEqual( subject.red.value, 1 );
+			assert.strictEqual( subject.yellow.value, 2 );
+			assert.strictEqual( subject.green.value, 3 );
+		} );
 	} );
 } );
