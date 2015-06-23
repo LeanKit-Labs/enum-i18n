@@ -4,7 +4,10 @@
   "description": "Enum with support for translated member descriptions",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register spec/*.spec.js"
+    "lint": "jshint ./",
+    "style": "npm run lint && jscs --fix ./",
+    "test": "npm run style && babel-istanbul test -x **/*.spec.js _mocha -- --compilers js:babel/register spec/*.spec.js",
+    "coverage": "npm test --coverage && open ./coverage/lcov-report/index.html"
   },
   "keywords": [
     "enum",
@@ -25,7 +28,10 @@
   },
   "devDependencies": {
     "babel": "^5.6.3",
+    "babel-istanbul": "^0.2.9",
     "chai": "^3.0.0",
+    "jscs": "^1.13.1",
+    "jshint": "^2.8.0",
     "mocha": "^2.2.5"
   }
 }
