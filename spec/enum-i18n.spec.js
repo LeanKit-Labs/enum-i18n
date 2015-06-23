@@ -1,3 +1,8 @@
+"use strict";
+
+// We use `new` because we are using ES6 classes
+/* jshint nonew: false */
+
 var enumI18n = require( "../" );
 var assert = require( "chai" ).assert;
 
@@ -15,27 +20,27 @@ const BASIC_OPTIONS = {
 };
 
 function basicMemberTests( parent, item, frozen ) {
-	it( 'should have a "key" property', function() {
+	it( "should have a 'key' property", function() {
 		assert.property( item, "key" );
 		assert.strictEqual( item.key, "red" );
 	} );
 
-	it( 'should have a "value" property', function() {
+	it( "should have a 'value' property", function() {
 		assert.property( item, "value" );
 		assert.strictEqual( item.value, 1 );
 	} );
 
-	it( 'should have an "enum" property', function() {
+	it( "should have an 'enum' property", function() {
 		assert.property( item, "enum" );
 		assert.strictEqual( item.enum, parent );
 	} );
 
-	it( 'should have a "toDescription" method', function() {
+	it( "should have a 'toDescription' method", function() {
 		assert.property( item, "toDescription" );
 		assert.isFunction( item.toDescription );
 	} );
 
-	it( '"toDescription" method should return translation', function() {
+	it( "'toDescription' method should return translation", function() {
 		assert.strictEqual( item.toDescription(), "colors.red" );
 	} );
 
@@ -55,12 +60,12 @@ function basicMemberTests( parent, item, frozen ) {
 }
 
 function basicEnumTests( subject, frozen ) {
-	it( 'should create enum with a "name"', function() {
+	it( "should create enum with a 'name'", function() {
 		assert.property( subject, "name" );
 		assert.strictEqual( subject.name, BASIC_OPTIONS.name );
 	} );
 
-	it( 'should have an "enums" property', function() {
+	it( "should have an 'enums' property", function() {
 		assert.property( subject, "enums" );
 		assert.isArray( subject.enums );
 	} );
@@ -96,7 +101,7 @@ function basicContructorTests( EnumI18n, frozen ) {
 
 		basicEnumTests( subject, frozen );
 
-		it( 'should have "flaggable" values', function() {
+		it( "should have 'flaggable' values", function() {
 			assert.strictEqual( subject.red.value, 1 );
 			assert.strictEqual( subject.yellow.value, 2 );
 			assert.strictEqual( subject.green.value, 4 );
@@ -105,7 +110,7 @@ function basicContructorTests( EnumI18n, frozen ) {
 }
 
 describe( "EnumI18n", function() {
-	it( 'factory throws error if called with a "name" option', function() {
+	it( "factory throws error if called with a 'name' option", function() {
 		assert.throws( function() {
 			enumI18n( { name: "not allowed" } );
 		} );
@@ -114,13 +119,13 @@ describe( "EnumI18n", function() {
 	describe( "constructor with no defaults", function() {
 		var EnumI18n = enumI18n();
 
-		it( 'should throw error if missing "name" option', function() {
+		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
 				new EnumI18n( COLOR_LIST, { translate: function() {} } );
 			} );
 		} );
 
-		it( 'should throw error if missing "translate" option', function() {
+		it( "should throw error if missing 'translate' option", function() {
 			assert.throws( function() {
 				new EnumI18n( COLOR_LIST, { name: "colors" } );
 			} );
@@ -129,20 +134,20 @@ describe( "EnumI18n", function() {
 		basicContructorTests( EnumI18n, false );
 	} );
 
-	describe( 'constructor with default "translate" function', function() {
+	describe( "constructor with default 'translate' function", function() {
 		var EnumI18n = enumI18n( {
 			translate: function( item ) {
 				return "i.am.enum." + item.enum.name + "." + item.key;
 			}
 		} );
 
-		it( 'should throw error if missing "name" option', function() {
+		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
 				new EnumI18n( COLOR_LIST, { translate: function() {} } );
 			} );
 		} );
 
-		it( 'should not require "translate" option', function() {
+		it( "should not require 'translate' option", function() {
 			assert.doesNotThrow( function() {
 				new EnumI18n( COLOR_LIST, { name: "colors" } );
 			} );
@@ -156,7 +161,7 @@ describe( "EnumI18n", function() {
 		basicContructorTests( EnumI18n, false );
 	} );
 
-	describe( 'constructor with default "freez" option', function() {
+	describe( "constructor with default 'freez' option", function() {
 		var EnumI18n = enumI18n( {
 			freez: true
 		} );
