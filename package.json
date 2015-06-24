@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "jshint ./",
-    "style": "npm run lint && jscs --fix ./",
+    "style": "npm run lint && jscs ./",
     "test": "npm run style && babel-istanbul test -x **/*.spec.js _mocha -- --compilers js:babel/register spec/*.spec.js",
-    "coverage": "npm test --coverage && open ./coverage/lcov-report/index.html"
+    "coverage": "npm test --coverage && open ./coverage/lcov-report/index.html",
+    "watch": "supervisor -i coverage -n exit --exec npm -- test --coverage"
   },
   "keywords": [
     "enum",
@@ -32,6 +33,7 @@
     "chai": "^3.0.0",
     "jscs": "^1.13.1",
     "jshint": "^2.8.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "supervisor": "^0.7.0"
   }
 }
