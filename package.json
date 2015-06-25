@@ -2,13 +2,14 @@
   "name": "enum-i18n",
   "version": "1.0.0",
   "description": "Enum with support for translated member descriptions",
-  "main": "index.js",
+  "main": "src/enum-i18n.js",
   "scripts": {
-    "lint": "jshint ./",
-    "style": "npm run lint && jscs ./",
-    "test": "npm run style && babel-istanbul test -x **/*.spec.js _mocha -- --compilers js:babel/register spec/*.spec.js",
-    "coverage": "npm test --coverage && open ./coverage/lcov-report/index.html",
-    "watch": "supervisor -i coverage -n exit --exec npm -- test --coverage"
+    "lint": "gulp jshint",
+    "format": "gulp format",
+    "test": "gulp test-and-exit",
+    "coverage": "gulp coverage",
+    "show-coverage": "gulp show-coverage",
+    "watch": "gulp coverage-watch"
   },
   "keywords": [
     "enum",
@@ -32,11 +33,6 @@
     "biggulp": "0.0.5",
     "chai": "^3.0.0",
     "gulp": "^3.9.0",
-    "gulp-changed": "^1.2.1",
-    "gulp-jscs": "^1.6.0",
-    "gulp-jshint": "^1.11.0",
-    "gulp-util": "^3.0.6",
-    "jshint-stylish": "^2.0.1",
     "mocha": "^2.2.5"
   }
 }

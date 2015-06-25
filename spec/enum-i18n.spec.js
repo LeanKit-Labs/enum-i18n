@@ -1,9 +1,6 @@
 "use strict";
 
-// We use `new` because we are using ES6 classes
-/* jshint nonew: false */
-
-var enumI18n = require( "../" );
+var enumI18n = require( "../src/enum-i18n" );
 var assert = require( "chai" ).assert;
 
 const COLOR_LIST = [ "red", "yellow", "green" ];
@@ -121,13 +118,13 @@ describe( "EnumI18n", function() {
 
 		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
-				new EnumI18n( COLOR_LIST, { translate: function() {} } );
+				return new EnumI18n( COLOR_LIST, { translate: function() {} } );
 			} );
 		} );
 
 		it( "should throw error if missing 'translate' option", function() {
 			assert.throws( function() {
-				new EnumI18n( COLOR_LIST, { name: "colors" } );
+				return new EnumI18n( COLOR_LIST, { name: "colors" } );
 			} );
 		} );
 
@@ -141,19 +138,19 @@ describe( "EnumI18n", function() {
 
 		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
-				new EnumI18n( COLOR_LIST, {} );
+				return new EnumI18n( COLOR_LIST, {} );
 			} );
 		} );
 
 		it( "should not require 'translate' option", function() {
 			assert.doesNotThrow( function() {
-				new EnumI18n( COLOR_LIST, { name: "colors" } );
+				return new EnumI18n( COLOR_LIST, { name: "colors" } );
 			} );
 		} );
 
 		it( "can be instantiated with a 'name' string", function() {
 			assert.doesNotThrow( function() {
-				new EnumI18n( COLOR_LIST, "colors" );
+				return new EnumI18n( COLOR_LIST, "colors" );
 			} );
 		} );
 
@@ -174,19 +171,19 @@ describe( "EnumI18n", function() {
 
 		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
-				new EnumI18n( COLOR_LIST, {} );
+				return new EnumI18n( COLOR_LIST, {} );
 			} );
 		} );
 
 		it( "should not require 'translate' option", function() {
 			assert.doesNotThrow( function() {
-				new EnumI18n( COLOR_LIST, { name: "colors" } );
+				return new EnumI18n( COLOR_LIST, { name: "colors" } );
 			} );
 		} );
 
 		it( "can be instantiated with a 'name' string", function() {
 			assert.doesNotThrow( function() {
-				new EnumI18n( COLOR_LIST, "colors" );
+				return new EnumI18n( COLOR_LIST, "colors" );
 			} );
 		} );
 
