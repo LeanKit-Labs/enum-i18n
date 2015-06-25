@@ -138,3 +138,13 @@ colors.enums.map(function(member) {
 ]
 */
 ```
+
+
+## Development
+
+```bash
+npm test # run tests
+gulp coverage # run tests with linting and coverage
+gulp show-coverage # show coverage full report
+gulp # build compiled lib
+```

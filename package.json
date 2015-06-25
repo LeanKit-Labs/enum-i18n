@@ -9,7 +9,8 @@
     "test": "gulp test-and-exit",
     "coverage": "gulp coverage",
     "show-coverage": "gulp show-coverage",
-    "watch": "gulp coverage-watch"
+    "watch": "gulp coverage-watch",
+    "build": "gulp"
   },
   "keywords": [
     "enum",
@@ -24,15 +25,24 @@
     "type": "git",
     "url": "git@github.com:Prestaul/enum-i18n.git"
   },
+  "homepage": "https://github.com/Prestaul/enum-i18n",
   "dependencies": {
     "deap": "^1.0.0",
     "enum": "^2.1.0"
   },
   "devDependencies": {
     "babel": "^5.6.3",
+    "babel-core": "^5.6.7",
+    "babel-loader": "^5.2.1",
     "biggulp": "0.0.5",
     "chai": "^3.0.0",
     "gulp": "^3.9.0",
-    "mocha": "^2.2.5"
+    "gulp-header": "^1.2.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-webpack": "^1.5.0",
+    "mocha": "^2.2.5",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.9.12"
   }
 }
