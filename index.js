@@ -22,8 +22,12 @@ module.exports = function( defaults ) {
 
 			var opts = clone( defaults, options );
 
-			if ( !( opts && opts.name && ( typeof opts.translate === "function" ) ) ) {
-				throw new Error( "EnumI18n requires 'name' and 'translate' options." );
+			if ( !( opts.name && typeof opts.name === "string" ) ) {
+				throw new Error( "EnumI18n requires a 'name' string." );
+			}
+
+			if ( typeof opts.translate !== "function" ) {
+				throw new Error( "EnumI18n requires a 'translate' function." );
 			}
 
 			// We need to update enum members after creation so if they want
