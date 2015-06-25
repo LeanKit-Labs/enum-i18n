@@ -135,6 +135,37 @@ describe( "EnumI18n", function() {
 	} );
 
 	describe( "constructor with default 'translate' function", function() {
+		var EnumI18n = enumI18n( function( item ) {
+			return "i.am.enum." + item.enum.name + "." + item.key;
+		} );
+
+		it( "should throw error if missing 'name' option", function() {
+			assert.throws( function() {
+				new EnumI18n( COLOR_LIST, {} );
+			} );
+		} );
+
+		it( "should not require 'translate' option", function() {
+			assert.doesNotThrow( function() {
+				new EnumI18n( COLOR_LIST, { name: "colors" } );
+			} );
+		} );
+
+		it( "can be instantiated with a 'name' string", function() {
+			assert.doesNotThrow( function() {
+				new EnumI18n( COLOR_LIST, "colors" );
+			} );
+		} );
+
+		it( "uses default translation if not overidden", function() {
+			var subject = new EnumI18n( COLOR_LIST, { name: "colors" } );
+			assert.strictEqual( subject.red.toDescription(), "i.am.enum.colors.red" );
+		} );
+
+		basicContructorTests( EnumI18n, false );
+	} );
+
+	describe( "constructor with default 'translate' option", function() {
 		var EnumI18n = enumI18n( {
 			translate: function( item ) {
 				return "i.am.enum." + item.enum.name + "." + item.key;
@@ -143,13 +174,19 @@ describe( "EnumI18n", function() {
 
 		it( "should throw error if missing 'name' option", function() {
 			assert.throws( function() {
-				new EnumI18n( COLOR_LIST, { translate: function() {} } );
+				new EnumI18n( COLOR_LIST, {} );
 			} );
 		} );
 
 		it( "should not require 'translate' option", function() {
 			assert.doesNotThrow( function() {
 				new EnumI18n( COLOR_LIST, { name: "colors" } );
+			} );
+		} );
+
+		it( "can be instantiated with a 'name' string", function() {
+			assert.doesNotThrow( function() {
+				new EnumI18n( COLOR_LIST, "colors" );
 			} );
 		} );
 

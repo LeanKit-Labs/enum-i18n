@@ -4,7 +4,11 @@ var Enum = require( "enum" );
 var clone = require( "deap/shallow" ).clone;
 
 module.exports = function( defaults ) {
-	defaults = defaults || {};
+	if ( typeof defaults === "function" ) {
+		defaults = { translate: defaults };
+	} else {
+		defaults = defaults || {};
+	}
 
 	if ( defaults.name ) {
 		throw new Error( "'name' cannot be provided as a default option to enum-i18n." );
@@ -12,6 +16,10 @@ module.exports = function( defaults ) {
 
 	class EnumI18n extends Enum {
 		constructor( map, options ) {
+			if ( typeof options === "string" ) {
+				options = { name: options };
+			}
+
 			var opts = clone( defaults, options );
 
 			if ( !( opts && opts.name && ( typeof opts.translate === "function" ) ) ) {
