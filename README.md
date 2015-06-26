@@ -20,9 +20,9 @@ This document addresses the i18n features added here. For full documentation see
 The default export of this module is a factory that returns partially configured `Enum` constructors. You can pass any config values supported by [adrai/enum](https://github.com/adrai/enum#usage) and they will be used for any enumerations instantiated with the returned constructor.
 
 ```js
-var enumI18n = require('enum-i18n');
-var FrozenEnum = enumI18n({ freez: true }); // Constructor for readonly enums
-var InsensitiveEnum = enumI18n({ ignoreCase: true }); // Constructor for case insensitive enums
+var enumI18n = require( "enum-i18n" );
+var FrozenEnum = enumI18n( { freez: true } ); // Constructor for readonly enums
+var InsensitiveEnum = enumI18n( { ignoreCase: true } ); // Constructor for case insensitive enums
 ```
 
 
@@ -32,27 +32,27 @@ Every enumeration must be provided a translate function. This function will be c
 
 You can pass a translate function to the constructor factory:
 ```js
-var Enum = require('enum-i18n')({
-    translate: function(member) {
-        return getTranslation('enums.' + member.enum.name + '.' + member.key);
+var Enum = require( "enum-i18n" )( {
+    translate: function( member ) {
+        return getTranslation( "enums." + member.enum.name + "." + member.key );
     }
-});
+} );
 
 // Same as this shorthand:
-var Enum = require('enum-i18n')(function(member) {
-    return getTranslation('enums.' + member.enum.name + '.' + member.key);
-});
+var Enum = require( "enum-i18n" )( function( member ) {
+    return getTranslation( "enums." + member.enum.name + "." + member.key );
+} );
 ```
 
 Or you can pass a translate function to the constructor:
 ```js
-var Enum = require('enum-i18n')();
-var colors = new Enum(['red', 'yellow', 'green'], {
-    name: 'colors',
-    translate: function(member) {
+var Enum = require( "enum-i18n" )();
+var colors = new Enum( [ "red", "yellow", "green" ], {
+    name: "colors",
+    translate: function( member ) {
         return member.key;
     }
-});
+} );
 ```
 
 If you pass both then the constructor's translate function will win.
@@ -63,13 +63,13 @@ If you pass both then the constructor's translate function will win.
 Every enumeration must be provided with a `name` and a `translate` function. The `name` must be provided at the time the enumeration is instantiated.
 
 ```js
-var Enum = require('enum-i18n')(translator);
-var colors = Enum(['red', 'yellow', 'green'], {
-    name: 'colors'
-});
+var Enum = require( "enum-i18n" )( translator );
+var colors = Enum( [ "red", "yellow", "green" ], {
+    name: "colors"
+} );
 
 // Same as shorthand:
-var colors = Enum(['red', 'yellow', 'green'], 'colors');
+var colors = Enum( [ "red", "yellow", "green" ], "colors" );
 ```
 
 You can also pass any options supported by [adrai/enum](https://github.com/adrai/enum#usage).
@@ -81,18 +81,18 @@ If you have a single translation collection for your app, you can pass a transla
 
 ```js
 // Pass config and get back an Enum constructor
-var Enum = require('enum-i18n')(function(member) {
+var Enum = require( "enum-i18n" )( function( member ) {
     // Return a string to use as the enum member's description
-    return getTranslation('enums.' + member.enum.name + '.' + member.key);
+    return getTranslation( "enums." + member.enum.name + "." + member.key );
 );
 
 // Define a simple enum
-var colors = new Enum([ 'red', 'yellow', 'green' ], 'colors');
+var colors = new Enum( [ "red", "yellow", "green" ], "colors" );
 
 // Render the member keys/values/descriptions
-colors.enums.map(function(member) {
-    return member.key + ', ' + member.value + ', ' + member.toDescription();
-});
+colors.enums.map( function( member ) {
+    return member.key + ", " + member.value + ", " + member.toDescription();
+} );
 /*
 [
     "red, 1, enums.colors.red",
@@ -109,27 +109,27 @@ If you have a translation collection per enumeration, you can pass a translate f
 
 ```js
 // Pass config and get back an Enum constructor
-var Enum = require('enum-i18n')();
+var Enum = require( "enum-i18n" )();
 
-var COLOR_NAMES: {
-    red: 'stop',
-    yellow: 'caution',
-    green: 'go'
+var COLOR_NAMES = {
+    red: "stop",
+    yellow: "caution",
+    green: "go"
 };
 
 // Define a simple enum
-var colors = new Enum([ 'red', 'yellow', 'green' ], { 
-    name: 'colors',
-    translate: function(member) {
+var colors = new Enum( [ "red", "yellow", "green" ], {
+    name: "colors",
+    translate: function( member ) {
         // Return a string to use as the enum member's description
-        return COLOR_NAMES[member.key];
+        return COLOR_NAMES[ member.key ];
     }
-});
+} );
 
 // Render the member keys/values/descriptions
-colors.enums.map(function(member) {
-    return member.key + ', ' + member.value + ', ' + member.toDescription();
-});
+colors.enums.map( function( member ) {
+    return member.key + ", " + member.value + ", " + member.toDescription();
+} );
 /*
 [
     "red, 1, stop",
