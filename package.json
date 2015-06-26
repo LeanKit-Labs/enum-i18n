@@ -34,7 +34,7 @@
     "babel": "^5.6.3",
     "babel-core": "^5.6.7",
     "babel-loader": "^5.2.1",
-    "biggulp": "0.0.5",
+    "biggulp": "^0.1.1",
     "chai": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-header": "^1.2.2",
