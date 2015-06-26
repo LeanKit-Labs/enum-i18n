@@ -16,7 +16,6 @@ var banner = [ "/**",
 
 require( "biggulp/common-gulp" )( gulp, { esnext: true } );
 
-// gulp.task( "build:es6", [ "format" ], function() {
 gulp.task( "build:es6", [ "format" ], function() {
 	return gulp.src( "src/enum-i18n.js" )
 		.pipe( header( banner, {
