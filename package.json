@@ -1,6 +1,6 @@
 {
   "name": "enum-i18n",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Enum with support for translated member descriptions",
   "main": "src/enum-i18n.js",
   "scripts": {
@@ -23,9 +23,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Prestaul/enum-i18n.git"
+    "url": "git@github.com:LeanKit-Labs/enum-i18n.git"
   },
-  "homepage": "https://github.com/Prestaul/enum-i18n",
+  "homepage": "https://github.com/LeanKit-Labs/enum-i18n",
   "dependencies": {
     "deap": "^1.0.0",
     "enum": "^2.1.0"
