@@ -1,6 +1,6 @@
 {
   "name": "enum-i18n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enum with support for translated member descriptions",
   "main": "src/enum-i18n.js",
   "scripts": {
